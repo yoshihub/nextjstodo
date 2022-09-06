@@ -1,32 +1,54 @@
 import type { NextPage } from 'next'
+import { requestToBodyStream } from 'next/dist/server/body-streams'
 import Head from 'next/head'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
+type Todo = {
+  value: string;
+  readonly id: number;
+};
+
 const Home: NextPage = () => {
   const [text,setText]=useState("");
-  const [task,setTask]=useState(["ああああ","いいい"]);
+  const [todos,setTodo]=useState<Todo[]>([]);
 
-  const handleText=(e)=>{
+
+  const handleText=(e: React.ChangeEvent<HTMLInputElement>)=>{
     setText(e.target.value);
   }
 
-  const taskInput=()=>{
+  const inputText=(id:number,value:string)=>{
+    const newTodo=todos.map((todo)=>({...todo}));
+    const sinTodo=newTodo.map((todo)=>{
+      if(todo.id===id){
+        todo.value=value;
+      }
+      return todo;
+    })
+
+    setTodo(sinTodo);
+  }
+
+  const handleOnSubmit=()=>{
     if(text===""){
       return;
     }
-    const newTask=[...task,text];
-    setTask(newTask);
-    setText("");
-    console.log(task);
+    const newTask:Todo={
+      value:text,
+      id:new Date().getTime(),
+    }
+    setTodo([newTask,...todos]);
+    setText('');
   }
 
-  const handleDelete=(index)=>{
-    const newTask=[...task];
-    newTask.splice(index,1);
-    setTask(newTask);
-  }
+  const handleDelete=(id:number)=>{
+    const newTodo=todos.filter((todo)=>{
+      return todo.id!=id;
+    })
 
+    setTodo(newTodo);
+  }
 
 
   return (
@@ -38,16 +60,29 @@ const Home: NextPage = () => {
       </Head>
       <h1>TODO App</h1>
 
-      <textarea value={text} onChange={handleText}/>
-      <button onClick={taskInput}>タスク追加</button>
-        {task.map((todo,index)=>{
+        <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleOnSubmit();
+            }}
+          >
+            <input
+              type="text"
+              value={text}
+              onChange={(e) => handleText(e)}
+            />
+            <input type="submit" value="タスク追加" onSubmit={handleOnSubmit} />
+          </form>
+      <ol>
+        {todos.map((todo)=>{
           return(
-          <div key={todo}>
-            <p>{todo}</p>
-            <button onClick={()=>handleDelete(index)}>削除</button>
-          </div>
+          <li key={todo.id}>
+            <input type="text" value={todo.value} onChange={(e)=>inputText(todo.id,e.target.value)}/>
+            <button onClick={()=>handleDelete(todo.id)}>削除</button>
+          </li>
           )
         })}
+      </ol>
     </div>
   )
 }
