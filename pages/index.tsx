@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import { requestToBodyStream } from 'next/dist/server/body-streams'
 import Head from 'next/head'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
