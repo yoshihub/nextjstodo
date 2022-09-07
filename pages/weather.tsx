@@ -41,7 +41,8 @@ const Weather= () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <a href="/">TODOアプリ{" "}</a>
-      <a href="/weather">天気</a>
+      <a href="/weather">天気{" "}</a>
+      <a href="/antdesign">アントデザイン</a>
       <hr/>
 
     <h1>現在の天気</h1>

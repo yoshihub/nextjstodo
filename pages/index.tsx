@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
+
 type Todo = {
   value: string;
   readonly id: number;
@@ -85,7 +86,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <a href="/">TODOアプリ{" "}</a>
-      <a href="/weather">天気</a>
+      <a href="/weather">天気{" "}</a>
+      <a href="/antdesign">アントデザイン</a>
       <hr/>
       <h1>TODO App</h1>
 
