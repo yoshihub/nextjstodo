@@ -14,7 +14,10 @@ const AntDesign: React.FC= () => {
 
 
   return (
+    <div>
     <Button type="primary" onClick={onButtonClick}>First Button</Button>
+    <Button type="ghost" onClick={onButtonClick}>First Button</Button>
+    </div>
   )
 
 }
