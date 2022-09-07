@@ -49,7 +49,7 @@ const Weather= () => {
       <input type="text" placeholder='都市名を英語入力' onChange={(e)=>setCity(e.target.value)}/>
       <button type="submit" onClick={getWeather}>天気を見る</button>
     </form>
-     <div>
+    <div>
             {weather.country &&
                 <div>{weather.country}</div>
             }
