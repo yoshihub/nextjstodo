@@ -8,7 +8,7 @@ const AntDesign: React.FC= () => {
     console.log("クリック")
     setLoading(true)
     setTimeout(()=>{
-       setLoading(false)
+    setLoading(false)
     },2000);
   }
 
