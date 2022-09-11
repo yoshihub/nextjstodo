@@ -1,13 +1,9 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
-import { Button,Input } from 'antd';
+import { Button,DatePicker,Input,Col, Row, TimePicker } from 'antd';
 import {DeleteOutlined} from '@ant-design/icons'
 import { Header } from '../components/Header';
-
-
-
 
 
 
@@ -88,6 +84,8 @@ const Home: NextPage = () => {
     <div className={styles.container}>
 
       <Header title="TODO"/>
+
+
       <h1>TODO App</h1>
 
       <form
@@ -109,17 +107,21 @@ const Home: NextPage = () => {
 
       <h3>タスク{todos.length}個</h3>
 
-      <ul>
+
         {todos.map((todo)=>{
           return(
-          <li key={todo.id}>
-            <Button type="dashed" onClick={()=>finishChange(todo.id)}>{todo.finished?"完了":"未完"}</Button>
-            <input type="text" value={todo.value} onChange={(e)=>inputText(todo.id,e.target.value)}/>
-            <Button icon={<DeleteOutlined />} type="dashed" onClick={()=>handleDelete(todo.id)}>削除</Button>
-          </li>
+          <div key={todo.id} style={{marginBottom:17}}>
+            <Button type={todo.finished===true?"dashed":"primary"} onClick={()=>finishChange(todo.id)}>{todo.finished?"完了":"未完"}</Button>
+              <input type="text" value={todo.value} onChange={(e)=>inputText(todo.id,e.target.value)}/>
+            <DatePicker picker='date'/>
+            <TimePicker/>
+
+            <Button icon={<DeleteOutlined />} type="dashed" onClick=
+            {()=>handleDelete(todo.id)}>削除</Button>
+          </div>
           )
         })}
-      </ul>
+
     </div>
   )
 }

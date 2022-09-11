@@ -1,3 +1,4 @@
+import styles from '../styles/Home.module.css'
 import { useState} from 'react';
 import { Button, Form,Input } from 'antd';
 import { Header } from '../components/Header';
@@ -37,7 +38,7 @@ const Weather= () => {
     }
 
   return(
-    <div>
+    <div className={styles.container}>
       <Header title="天気"/>
       <h1>天気</h1>
 

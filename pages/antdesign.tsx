@@ -1,23 +1,26 @@
-import { Button } from 'antd';
-import {useState} from 'react';
+import { Col, Row } from 'antd';
+import React from 'react';
+
+
+
 
 const AntDesign: React.FC= () => {
-  const [loading,setLoading]=useState(false)
-
-  const onButtonClick=()=>{
-    console.log("クリック")
-    setLoading(true)
-    setTimeout(()=>{
-    setLoading(false)
-    },2000);
-  }
 
 
   return (
-    <div>
-    <Button type="primary" onClick={onButtonClick}>First Button</Button>
-    <Button type="ghost" onClick={onButtonClick}>First Button</Button>
-    </div>
+    <>
+     <Row justify="center">
+      <Col span={4}>col-4</Col>
+      <Col span={4}>col-4</Col>
+      <Col span={4}>col-4</Col>
+    </Row>
+     <Row justify="center">
+      <Col span={4}>col-4</Col>
+      <Col span={4}>col-4</Col>
+      <Col span={4}>col-4</Col>
+      <Col span={4}>col-4</Col>
+    </Row>
+    </>
   )
 
 }
