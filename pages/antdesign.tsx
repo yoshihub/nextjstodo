@@ -10,15 +10,12 @@ const AntDesign: React.FC= () => {
   return (
     <>
      <Row justify="center">
-      <Col span={4}>col-4</Col>
-      <Col span={4}>col-4</Col>
-      <Col span={4}>col-4</Col>
+      <Col span={24}>col-4</Col>
+      <Col span={24}>col-4</Col>
+      <Col span={24}>col-4</Col>
     </Row>
      <Row justify="center">
-      <Col span={4}>col-4</Col>
-      <Col span={4}>col-4</Col>
-      <Col span={4}>col-4</Col>
-      <Col span={4}>col-4</Col>
+      <Col span={24}>col-4</Col>
     </Row>
     </>
   )

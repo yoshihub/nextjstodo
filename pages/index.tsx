@@ -86,7 +86,7 @@ const Home: NextPage = () => {
       <Header title="TODO"/>
 
 
-      <h1>TODO App</h1>
+      <h1 style={{marginTop:20,marginBottom:25}}>TODO App</h1>
 
       <form
         onSubmit={(e) => {
@@ -105,7 +105,7 @@ const Home: NextPage = () => {
           </Button>
       </form>
 
-      <h3>タスク{todos.length}個</h3>
+      <h3 style={{marginTop:15,marginBottom:10}}>タスク{todos.length}個</h3>
 
 
         {todos.map((todo)=>{

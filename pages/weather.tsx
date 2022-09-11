@@ -40,10 +40,10 @@ const Weather= () => {
   return(
     <div className={styles.container}>
       <Header title="天気"/>
-      <h1>天気</h1>
+      <h1 style={{marginTop:20,marginBottom:25}}>天気</h1>
 
       <Form>
-        <Form.Item label="都市名" name="city">
+        <Form.Item>
           <Input
           style={{width:"30%"}}
           placeholder='都市名を英語入力'
