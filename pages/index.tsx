@@ -4,6 +4,8 @@ import styles from '../styles/Home.module.css'
 import { Button,DatePicker,Input,Col, Row, TimePicker } from 'antd';
 import {DeleteOutlined} from '@ant-design/icons'
 import { Header } from '../components/Header';
+import { SideMenu } from '../components/SideMenu';
+import { Footer } from '../components/Footer';
 
 
 
@@ -81,48 +83,48 @@ const Home: NextPage = () => {
 
 
   return (
-    <div className={styles.container}>
-
+    <div style={{display:"flex",flexDirection:"column",flex:1,height:'100vh'}}>
       <Header title="TODO"/>
+      <div style={{display:"flex",flexDirection:"row",flex:1}}>
+        <SideMenu/>
+        <div style={{textAlign:'center',width:'85%'}}>
+          <h1 style={{marginTop:20,marginBottom:25,fontWeight:'bold',fontSize:35}}>TODO App</h1>
+          <form
+          onSubmit={(e) => {
+          e.preventDefault();
+          handleOnSubmit();
+          }}>
+          <Input
+            type="text"
+            value={text}
+            maxLength={15}
+            placeholder='タスクを入力'
+            onChange={(e) => handleText(e)}
+            style={{width:"30%"}}></Input>
+            <Button type="primary" htmlType="submit" onSubmit={handleOnSubmit}>
+            タスク追加
+            </Button>
+            </form>
+            <h3 style={{marginTop:15,marginBottom:10}}>タスク{todos.length}個</h3>
 
+            {todos.map((todo)=>{
+            return(
+            <div key={todo.id} style={{marginBottom:17}}>
+              <Button type={todo.finished===true?"dashed":"primary"} onClick={()=>finishChange(todo.id)}>{todo.finished?"完了":"未完"}</Button>
+                <input type="text" value={todo.value} onChange={(e)=>inputText(todo.id,e.target.value)}/>
+              <DatePicker picker='date'/>
+              <TimePicker/>
 
-      <h1 style={{marginTop:20,marginBottom:25}}>TODO App</h1>
-
-      <form
-        onSubmit={(e) => {
-        e.preventDefault();
-        handleOnSubmit();
-        }}>
-        <Input
-          type="text"
-          value={text}
-          maxLength={15}
-          placeholder='タスクを入力'
-          onChange={(e) => handleText(e)}
-          style={{width:"30%"}}></Input>
-          <Button type="primary" htmlType="submit" onSubmit={handleOnSubmit}>
-          タスク追加
-          </Button>
-      </form>
-
-      <h3 style={{marginTop:15,marginBottom:10}}>タスク{todos.length}個</h3>
-
-
-        {todos.map((todo)=>{
-          return(
-          <div key={todo.id} style={{marginBottom:17}}>
-            <Button type={todo.finished===true?"dashed":"primary"} onClick={()=>finishChange(todo.id)}>{todo.finished?"完了":"未完"}</Button>
-              <input type="text" value={todo.value} onChange={(e)=>inputText(todo.id,e.target.value)}/>
-            <DatePicker picker='date'/>
-            <TimePicker/>
-
-            <Button icon={<DeleteOutlined />} type="dashed" onClick=
-            {()=>handleDelete(todo.id)}>削除</Button>
-          </div>
-          )
-        })}
-
+              <Button icon={<DeleteOutlined />} type="dashed" onClick=
+              {()=>handleDelete(todo.id)}>削除</Button>
+            </div>
+            )
+          })}
+        </div>
+      </div>
+      <Footer/>
     </div>
+
   )
 }
 
