@@ -1,26 +1,12 @@
-import { Col, Row } from 'antd';
-import React from 'react';
 
 
 
 
-const AntDesign: React.FC= () => {
 
 
-  return (
-    <>
-     <Row justify="center">
-      <Col span={24}>col-4</Col>
-      <Col span={24}>col-4</Col>
-      <Col span={24}>col-4</Col>
-    </Row>
-     <Row justify="center">
-      <Col span={24}>col-4</Col>
-    </Row>
-    </>
-  )
 
-}
+  const App=()=>{
 
+  }
 
-export default AntDesign
+export default App;

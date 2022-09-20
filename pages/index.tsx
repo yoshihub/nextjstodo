@@ -1,11 +1,13 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
-import { Button, DatePicker, Input, Col, Row, TimePicker, Select, message } from 'antd';
+import { Button, DatePicker, Input, TimePicker, Select,Popconfirm, Typography,Form} from 'antd';
 import { DeleteOutlined } from '@ant-design/icons'
 import { Header } from '../components/Header';
 import { SideMenu } from '../components/SideMenu';
 import { Footer } from '../components/Footer';
+
+const {Title,Paragraph}=Typography;
 
 
 
@@ -64,13 +66,13 @@ const Home: NextPage = () => {
     const newTodo = todos.filter((todo) => {
       return todo.id != id;
     })
-
     setTodo(newTodo);
   }
 
   const status=["未完了","実行中","完了"];
 
-  console.log(text);
+  const deleteText = '削除します。よろしいですか？';
+
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: '100vh' }}>
@@ -82,7 +84,7 @@ const Home: NextPage = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleOnSubmit(e);
+              handleOnSubmit();
             }}>
             <Input
               type="text"
@@ -90,33 +92,38 @@ const Home: NextPage = () => {
               placeholder='タスクを入力'
               onChange={(e) => handleText(e)}
               style={{ width: "30%" }}></Input>
-            <Button type="primary" htmlType="submit" onSubmit={(e) => {
-              // handleOnSubmit();
-            }}>
-              タスク追加
-            </Button>
+            <Button type="primary" htmlType="submit">タスク追加</Button>
           </form>
           <h3 style={{ marginTop: 15, marginBottom: 10 }}>タスク{todos.length}個</h3>
 
           {todos.map((todo) => {
             return (
               <div key={todo.id} style={{ marginBottom: 17 }}>
+                <Form>
                 <Select
                 allowClear
                 placeholder="タスク状態"
-                style={{width:'11%'}}
+                style={{width:'15%'}}
+
                 >
                   {status.map((status,index)=>{
                     return (<Select.Option key={index} value={status}>
                   </Select.Option>)
                   })}
                 </Select>
-                <input type="text" value={todo.value} onChange={(e) => inputText(todo.id, e.target.value)} />
                 <DatePicker picker='date' />
                 <TimePicker />
-
-                <Button icon={<DeleteOutlined />} type="default" onClick=
-                  {() => handleDelete(todo.id)} style={{color:'red',borderColor:'red'}}>削除</Button>
+                <Input
+                type="text"
+                value={todo.value}
+                placeholder='タスクを入力'
+                onChange={(e) => inputText(todo.id, e.target.value)}
+                style={{ width: "23%" }}></Input>
+                <Popconfirm placement="topLeft" title={deleteText} onConfirm={() => handleDelete(todo.id)} okText="はい" cancelText="いいえ">
+                <Button icon={<DeleteOutlined />} type="default"
+                style={{color:'red',borderColor:'red'}}>削除</Button>
+                </Popconfirm>
+                </Form>
               </div>
             )
           })}
