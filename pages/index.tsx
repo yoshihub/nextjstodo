@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import styles from '../styles/Home.module.css'
-import { Button, DatePicker, Input, TimePicker, Select,Popconfirm, Typography,Form} from 'antd';
+import { Button, DatePicker, Input, TimePicker, Select,Popconfirm, Typography,Form,message} from 'antd';
 import { DeleteOutlined } from '@ant-design/icons'
 import { Header } from '../components/Header';
 import { SideMenu } from '../components/SideMenu';
 import { Footer } from '../components/Footer';
-
-const {Title,Paragraph}=Typography;
+import React from 'react';
+import Graph from './graph';
 
 
 
@@ -15,11 +15,14 @@ type Todo = {
   value: string;
   readonly id: number;
   finished: boolean;
+  taskState:string;
 };
 
 const Home: NextPage = () => {
   const [text, setText] = useState("");
   const [todos, setTodo] = useState<Todo[]>([]);
+
+
 
 
 
@@ -29,7 +32,7 @@ const Home: NextPage = () => {
 
   const inputText = (id: number, value: string) => {
     if (value.length > 15) {
-      alert('文字数は15文字までです');
+      message.error('文字数は15文字までです');
       return;
     }
     const newTodo = todos.map((todo) => ({ ...todo }));
@@ -45,11 +48,11 @@ const Home: NextPage = () => {
 
   const handleOnSubmit = () => {
     if (text === "") {
-      alert("テキストを入力してください");
+      message.error("テキストを入力してください");
       return;
     }
     if (text.length > 15) {
-      alert("文字数は15文字までです")
+      message.error("文字数は15文字までです")
       setText("");
       return;
     }
@@ -57,6 +60,7 @@ const Home: NextPage = () => {
       value: text,
       id: new Date().getTime(),
       finished: false,
+      taskState:"",
     }
     setTodo([...todos,newTask]);
     setText('');
@@ -69,9 +73,28 @@ const Home: NextPage = () => {
     setTodo(newTodo);
   }
 
-  const status=["未完了","実行中","完了"];
-
   const deleteText = '削除します。よろしいですか？';
+
+
+
+
+  const handleSelect=(id: number, value: string)=>{
+
+    const newTodo = todos.map((todo) => ({ ...todo }));
+    const sinTodo = newTodo.map((todo) => {
+      if (todo.id === id) {
+        todo.taskState = value;
+      }
+      return todo;
+    })
+    setTodo(sinTodo);
+
+  }
+
+
+
+
+
 
 
   return (
@@ -100,17 +123,12 @@ const Home: NextPage = () => {
             return (
               <div key={todo.id} style={{ marginBottom: 17 }}>
                 <Form>
-                <Select
-                allowClear
-                placeholder="タスク状態"
-                style={{width:'15%'}}
-
-                >
-                  {status.map((status,index)=>{
-                    return (<Select.Option key={index} value={status}>
-                  </Select.Option>)
-                  })}
-                </Select>
+                <select value={todo.taskState} onChange={(e) =>handleSelect(todo.id, e.target.value)}>
+                  <option value="">--状態を選択--</option>
+                  <option value="未完了">未完了</option>
+                  <option value="実行中">実行中</option>
+                  <option value="完了">完了</option>
+                </select>
                 <DatePicker picker='date' />
                 <TimePicker />
                 <Input
@@ -128,6 +146,21 @@ const Home: NextPage = () => {
             )
           })}
         </div>
+
+          {/* グラフ試作 */}
+          <Graph
+          mikan={Object.keys(todos.filter((todo) => {
+          return todo.taskState == "未完了";
+          })).length}
+          zikkou={Object.keys(todos.filter((todo) => {
+          return todo.taskState == "実行中";
+          })).length}
+          kan={Object.keys(todos.filter((todo) => {
+          return todo.taskState == "完了";
+          })).length}
+          />
+
+
       </div>
       <Footer />
     </div>
