@@ -7,7 +7,8 @@ import { Header } from '../components/Header';
 import { SideMenu } from '../components/SideMenu';
 import { Footer } from '../components/Footer';
 import React from 'react';
-import Graph from './graph';
+import {Graph} from './graph';
+
 
 
 
