@@ -25,6 +25,15 @@ const randomEmail = faker.internet.email();
 
 export const options = {
   responsive: false,
+  scales: {
+    y: {
+      min: 0,
+      max: 10,
+      ticks: {
+        stepSize: 1
+      }
+    },
+  },
   plugins: {
     legend: {
       position: 'top' as const,
@@ -37,7 +46,6 @@ export const options = {
 };
 
 const labels = ['未完了', '実行中', '完了'];
-
 
 
 export function Graph(props) {
@@ -53,5 +61,5 @@ export function Graph(props) {
     },
   ],
 };
-  return <Bar options={options} data={data} />;
+  return <Bar height={330} options={options} data={data} />;
 }

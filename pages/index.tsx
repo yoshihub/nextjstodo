@@ -1,13 +1,12 @@
 import type { NextPage } from 'next'
 import { useCallback, useState } from 'react'
-import styles from '../styles/Home.module.css'
-import { Button, DatePicker, Input, TimePicker, Select,Popconfirm, Typography,Form,message} from 'antd';
+import { Button, DatePicker, Input, TimePicker,Popconfirm,Form,message} from 'antd';
 import { DeleteOutlined } from '@ant-design/icons'
 import { Header } from '../components/Header';
-import { SideMenu } from '../components/SideMenu';
 import { Footer } from '../components/Footer';
 import React from 'react';
-import {Graph} from './graph';
+import { Graph } from '../components/graph';
+
 
 
 
@@ -93,17 +92,11 @@ const Home: NextPage = () => {
   }
 
 
-
-
-
-
-
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, height: '100vh' }}>
       <Header title="TODO" />
       <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
-        <SideMenu />
-        <div style={{ textAlign: 'center', width: '85%' }}>
+        <div style={{ textAlign: 'center', width: '70%' }}>
           <h1 style={{ marginTop: 20, marginBottom: 25, fontWeight: 'bold', fontSize: 35 }}>TODO App</h1>
           <form
             onSubmit={(e) => {
@@ -124,7 +117,7 @@ const Home: NextPage = () => {
             return (
               <div key={todo.id} style={{ marginBottom: 17 }}>
                 <Form>
-                <select value={todo.taskState} onChange={(e) =>handleSelect(todo.id, e.target.value)}>
+                <select style={{textAlign:"-webkit-center"}}　value={todo.taskState} onChange={(e) =>handleSelect(todo.id, e.target.value)}>
                   <option value="">--状態を選択--</option>
                   <option value="未完了">未完了</option>
                   <option value="実行中">実行中</option>
@@ -148,7 +141,6 @@ const Home: NextPage = () => {
           })}
         </div>
 
-          {/* グラフ試作 */}
           <Graph
           mikan={Object.keys(todos.filter((todo) => {
           return todo.taskState == "未完了";
@@ -160,7 +152,6 @@ const Home: NextPage = () => {
           return todo.taskState == "完了";
           })).length}
           />
-
 
       </div>
       <Footer />
